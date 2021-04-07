@@ -63,7 +63,7 @@ if rebuild:
     ''')
     conn.commit()
 c.execute('''
-     SELECT DISTINCT songs.song_id, artist, title
+    SELECT DISTINCT songs.song_id, artist, title
     FROM songs
     JOIN listening ON songs.song_id = listening.song_id
     WHERE songs.song_id NOT IN (
