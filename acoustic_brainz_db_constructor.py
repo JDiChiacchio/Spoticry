@@ -20,7 +20,7 @@ RETRAIN = False
 # Get segement name form args
 prefix = ''
 if len(sys.argv) == 2:
-    match = sys.argv[1]
+    match = sys.argv[1].strip()
     prefix = match + "_"
 else:
     match = ""
