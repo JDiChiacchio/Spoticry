@@ -25,7 +25,7 @@ if len(sys.argv) == 2:
 else:
     match = ""
 
-conn_acoust = sqlite3.connect(prefix + 'acoustic.db')
+conn_acoust = sqlite3.connect(locstr + prefix + 'acoustic.db')
 acoust = conn_acoust.cursor()
 
 
@@ -223,4 +223,4 @@ for path in glob.iglob(locstr + "acoustic_brainz_dataset/" + match + "*/*.json")
 
 conn_acoust.commit()
 conn_acoust.close()
-print(match + "done", of_dif_length, no_title_or_artist, added)
+print(match + " done", of_dif_length, no_title_or_artist, added)
