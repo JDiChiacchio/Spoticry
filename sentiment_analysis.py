@@ -11,7 +11,7 @@ nltk.download('words')
 nltk.download('stopwords')
 
 
-locstr = '/mnt/datassd/'
+locstr = '/mnt/datassd/csci1951a-spoticry-data/'
 
 
 dictionary = PyDictionary()

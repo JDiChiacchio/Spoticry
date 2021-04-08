@@ -3,7 +3,7 @@ import pandas as pd
 import re
 
 
-locstr = '/mnt/datassd/'
+locstr = '/mnt/datassd/csci1951a-spoticry-data/'
 
 
 def clean(text):
