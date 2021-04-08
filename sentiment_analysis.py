@@ -11,7 +11,7 @@ nltk.download('words')
 nltk.download('stopwords')
 
 
-locstr = '../'
+locstr = '../data/'
 
 
 dictionary = PyDictionary()

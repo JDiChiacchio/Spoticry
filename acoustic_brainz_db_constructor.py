@@ -13,7 +13,7 @@ from tensorflow.keras import layers, models
 pd.io.json._json.loads = lambda s, *a, **kw: json.loads(s)
 
 
-locstr = '../'
+locstr = '../data/'
 RETRAIN = False
 
 # Acousticbrainz feature extraction and database creating code

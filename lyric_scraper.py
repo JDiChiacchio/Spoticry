@@ -9,7 +9,7 @@ from humanfriendly import format_timespan
 
 
 # Database path
-dbpath = '../spoticry.db'
+dbpath = '../data/spoticry.db'
 # True to delete lyric table and start from scratch. False to continue on unscraped song_ids
 rebuild = False
 # Execute this many requests per database update/progress report
