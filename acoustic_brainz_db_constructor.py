@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import sqlite3
+import sys
 import glob
 import re
 import array
@@ -11,13 +12,20 @@ from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import layers, models
 
 
-locstr = 'data/'
+locstr = '/mnt/datassd/'
 RETRAIN = False
 
 # Acousticbrainz feature extraction and database creating code
 
+# Get segement name form args
+prefix = ''
+if len(sys.argv) == 2:
+    match = sys.argv[1]
+    prefix = match + "_"
+else:
+    match = ""
 
-conn_acoust = sqlite3.connect('acoustic.db')
+conn_acoust = sqlite3.connect(prefix + 'acoustic.db')
 acoust = conn_acoust.cursor()
 
 
@@ -120,7 +128,7 @@ def get_vectors(num_vectors):
     vecs = []
     songs_info = []
     num_times = 0
-    for path in glob.glob(locstr + "./acoustic_brainz_dataset/*/*.json"):
+    for path in glob.glob(locstr + f"./acoustic_brainz_dataset/{match}*/*.json"):
         if len(vecs) > num_vectors:
             break
         num_times += 1
@@ -192,7 +200,7 @@ of_dif_length = 0
 no_title_or_artist = 0
 added = 0
 seen = set()
-for path in glob.iglob(locstr + "acoustic_brainz_dataset/*/*.json"):
+for path in glob.iglob(locstr + f"acoustic_brainz_dataset/{match}*/*.json"):
     # print(path)
     num_times += 1
 
