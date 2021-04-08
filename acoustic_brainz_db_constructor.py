@@ -2,7 +2,6 @@
 # coding: utf-8
 
 import sqlite3
-import pandas as pd
 import glob
 import re
 import array
@@ -10,7 +9,6 @@ import json
 import numpy as np
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import layers, models
-pd.io.json._json.loads = lambda s, *a, **kw: json.loads(s)
 
 
 locstr = '../data/'
