@@ -11,17 +11,18 @@ from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import layers, models
 
 
-locstr = '../data/'
+locstr = 'data/'
 RETRAIN = False
 
 # Acousticbrainz feature extraction and database creating code
 
 
-conn_acoust = sqlite3.connect(locstr + 'acoustic.db')
+conn_acoust = sqlite3.connect('acoustic.db')
 acoust = conn_acoust.cursor()
 
 
 acoust.execute('PRAGMA foreign_keys = ON')
+acoust.execute('PRAGMA journal_mode = OFF')
 acoust.execute('DROP TABLE IF EXISTS acoustic_brainz;')
 
 make_acoustic = '''
