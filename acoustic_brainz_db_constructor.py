@@ -128,13 +128,14 @@ def get_vectors(num_vectors):
     vecs = []
     songs_info = []
     num_times = 0
-    for path in glob.glob(locstr + f"./acoustic_brainz_dataset/{match}*/*.json"):
+    for path in glob.glob(locstr + "./acoustic_brainz_dataset/" + match + "*/*.json"):
         if len(vecs) > num_vectors:
             break
         num_times += 1
 
         if not num_times % 500:
-            print(num_times, "len(vecs):", len(vecs), path)
+            print("db " + match + ": ", num_times,
+                  "len(vecs):", len(vecs), path)
 
         j = json.load(open(path))
         if j['metadata']['tags'].get('title') and j['metadata']['tags'].get('artist'):
@@ -200,12 +201,12 @@ of_dif_length = 0
 no_title_or_artist = 0
 added = 0
 seen = set()
-for path in glob.iglob(locstr + f"acoustic_brainz_dataset/{match}*/*.json"):
+for path in glob.iglob(locstr + "acoustic_brainz_dataset/" + match + "*/*.json"):
     # print(path)
     num_times += 1
 
     if not num_times % 500:
-        print(num_times, path, of_dif_length)
+        print("db " + match + ": ", num_times, path, of_dif_length)
 
     j = json.load(open(path))
     if j['metadata']['tags'].get('title') and j['metadata']['tags'].get('artist') and j['metadata']['tags'].get('musicbrainz_recordingid')[0] not in seen:
@@ -222,4 +223,4 @@ for path in glob.iglob(locstr + f"acoustic_brainz_dataset/{match}*/*.json"):
 
 conn_acoust.commit()
 conn_acoust.close()
-print("done", of_dif_length, no_title_or_artist, added)
+print(match + "done", of_dif_length, no_title_or_artist, added)
