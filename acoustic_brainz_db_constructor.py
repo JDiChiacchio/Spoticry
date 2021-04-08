@@ -19,7 +19,7 @@ RETRAIN = False
 # Acousticbrainz feature extraction and database creating code
 
 
-conn_acoust = sqlite3.connect(locstr + 'f_acoustic.db')
+conn_acoust = sqlite3.connect(locstr + 'acoustic.db')
 acoust = conn_acoust.cursor()
 
 
@@ -193,7 +193,7 @@ of_dif_length = 0
 no_title_or_artist = 0
 added = 0
 seen = set()
-for path in glob.iglob(locstr + "acoustic_brainz_dataset/f1/*"):
+for path in glob.iglob(locstr + "acoustic_brainz_dataset/*/*.json"):
     # print(path)
     num_times += 1
 
@@ -216,20 +216,3 @@ for path in glob.iglob(locstr + "acoustic_brainz_dataset/f1/*"):
 conn_acoust.commit()
 conn_acoust.close()
 print("done", of_dif_length, no_title_or_artist, added)
-
-
-# commit
-conn_acoust.commit()
-
-
-testing = '''
-SELECT COUNT(*)
-FROM acoustic_brainz
-'''
-
-acoust.execute(testing)
-temp = acoust.fetchone()
-print(temp)
-# vec = temp[-1]
-# print(vec)
-# print(array.array('f', vec))
