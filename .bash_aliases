@@ -1,0 +1,6 @@
+alias system_ip="echo 34.71.88.74"
+alias python="python3"
+alias pip="pip3"
+alias mountdata="gcsfuse --implicit-dirs csci1951a-spoticry-data ~/data"
+alias unmountdata="fusermount -u ~/data"
+alias notebook="jupyter-notebook --notebook-dir=~/Spoticry/Notebooks"
