@@ -12,7 +12,7 @@ from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import layers, models
 
 
-locstr = '/mnt/datassd/csci1951a-spoticry-data'
+locstr = '/mnt/datassd/csci1951a-spoticry-data/'
 RETRAIN = False
 
 # Acousticbrainz feature extraction and database creating code
