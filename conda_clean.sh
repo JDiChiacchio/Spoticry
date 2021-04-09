@@ -1,8 +1,7 @@
 #!/bin/bash
 
 
-#conda clean --yes --all
-
+#conda clean --yes --packages
 n=1
 while read line; do
     conda install $line
