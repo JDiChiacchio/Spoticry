@@ -10,8 +10,11 @@ locstr = '/mnt/datassd/csci1951a-spoticry-data/'
 conn = sqlite3.connect(locstr + 'acoustic.db')
 c = conn.cursor()
 
+
+c.execute('DROP TABLE IF EXISTS full_acoustic_brainz')
+conn.commit()
 make_main_acoustic = '''
-CREATE TABLE IF NOT EXISTS full_acoustic_brainz (
+CREATE TABLE full_acoustic_brainz (
 
   music_brainz_recording_id VARCHAR NOT NULL,
   artist VARCHAR NOT NULL,
@@ -28,11 +31,11 @@ CREATE TABLE IF NOT EXISTS full_acoustic_brainz (
 c.execute(make_main_acoustic)
 conn.commit()
 for file in glob.iglob(locstr + "acousticdb_components/*_acoustic.db"):
-    c.execute('ATTACH DATABASE ' + file + 'AS component')
+    c.execute('ATTACH DATABASE \'' + file + '\' AS \'component\'')
     c.execute('''
-        INSERT INTO full_accoustic_brainz
+        INSERT INTO full_acoustic_brainz
         SELECT * FROM component.acoustic_brainz;
     ''')
     conn.commit()
-    c.execute('DETACH DATABASE component')
+    c.execute('DETACH DATABASE \'component\'')
 conn.close()
