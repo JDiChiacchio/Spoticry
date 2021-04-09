@@ -21,7 +21,7 @@ RETRAIN = False
 prefix = ''
 if len(sys.argv) == 2:
     match = sys.argv[1].strip()
-    prefix = match + "_"
+    prefix = 'acousticdb_components/' + match + "_"
 else:
     match = ""
 
