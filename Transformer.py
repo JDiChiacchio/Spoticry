@@ -3,10 +3,22 @@
 
 # In[ ]:
 
+window_size = 40 #????
+embedding_size = 50
+kqv_size = 64 
 
 #Transformer
 
 import tensorflow as tf
+
+embedding_dict = {}
+
+#loop through all matches in db and add their vectors as tensors to the dict and make them untrainable
+
+
+W_q = tf.Variable(tf.random.normal(shape = (embedding_size, kqv_size)))
+W_k = tf.Variable(tf.random.normal(shape = (embedding_size, kqv_size)))
+W_v = tf.Variable(tf.random.normal(shape = (embedding_size, kqv_size)))
 
 
 

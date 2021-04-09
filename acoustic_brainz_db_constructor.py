@@ -213,7 +213,7 @@ for path in glob.iglob(locstr + "acoustic_brainz_dataset/" + match + "*/*.json")
         id, title, artist, vec = json_to_vector(j)
         seen.add(id)
         if len(vec) == 2691:
-            add_to_db(id, title, artist, ae.call(
+            add_to_db(id, title, artist, ae.encoder(
                 np.array([normalize(vec, mins, maxs)]))[0].numpy())
             added += 1
         else:
