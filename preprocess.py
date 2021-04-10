@@ -42,6 +42,9 @@ def preprocess(data):
     inputs = tf.convert_to_tensor(inputs)
     labels = tf.convert_to_tensor(labels)
 
+    print(train_inputs.shape, train_labels.shape)
+    print(test_inputs[0].numpy)
+
     seed = np.random.randint(1,1000)
     inputs = tf.random.shuffle(data, seed)
     labels = tf.random.shuffle(data, seed)
@@ -55,9 +58,6 @@ def preprocess(data):
 
     test_inputs = inputs[:split_point]
     test_labels = labels[:split_point]
-
-    # print(train_inputs.shape, train_labels.shape)
-    # print(test_inputs[0].numpy)
 
     # return train_inputs, train_labels, test_inputs, test_labels, embedding_table, id_dict
     pass
