@@ -25,14 +25,14 @@ class Transformer(tf.Module):
         self.embedding_size = hyper_params["embedding_size"]
         self.kqv_size = hyper_params["kqv_size"]
 
-        self.W_k = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=float32))
-        self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=float32))
-        self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=float32))
+        self.W_k = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
+        self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
+        self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
 
-        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size), dtype=float32))
-        self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size,), dtype=float32))
+        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size), dtype=tf.float32))
+        self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size,), dtype=tf.float32))
 
-        self.embeddings = tf.convert_to_tensor(embedding_table, dtype=float32)
+        self.embeddings = tf.convert_to_tensor(embedding_table, dtype=tf.float32)
 
     def get_embedding(self, indices):
         return tf.gather(self.embeddings,indices)
@@ -117,10 +117,10 @@ if __name__ == "__main__":
 
     locstr = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
 
-    train_inputs = tf.convert_to_tensor(np.load(locstr + 'train_inputs.npy'))
-    train_labels = tf.convert_to_tensor(np.load(locstr + 'train_labels.npy'))
-    test_inputs = tf.convert_to_tensor(np.load(locstr + 'test_inputs.npy'))
-    test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'))
+    train_inputs = tf.convert_to_tensor(np.load(locstr + 'train_inputs.npy'), dtype=tf.float32)
+    train_labels = tf.convert_to_tensor(np.load(locstr + 'train_labels.npy'), dtype=tf.float32)
+    test_inputs = tf.convert_to_tensor(np.load(locstr + 'test_inputs.npy'), dtype=tf.float32)
+    test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'), dtype=tf.float32)
     embedding_table = np.load(locstr + 'embedding_table.npy')
 
     model = Transformer(embedding_table)
