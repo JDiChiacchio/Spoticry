@@ -68,7 +68,7 @@ def train(model, inputs, labels):
 
                 batch_inputs = inputs[batch*model.batch_size:(batch+1)*model.batch_size]
                 batch_labels = labels[batch*model.batch_size:(batch+1)*model.batch_size]
-                batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=-1)
+                batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=1)
 
                 out = model.forward(batch_inputs)
                 loss = tf.keras.losses.MSE(batch_labels, out)
@@ -90,10 +90,10 @@ def test(model, inputs, labels):
 
         batch_inputs = inputs[batch*model.batch_size:(batch+1)*model.batch_size]
         batch_labels = labels[batch*model.batch_size:(batch+1)*model.batch_size]
-        batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=-1)
+        batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=1)
 
         model_out = model.forward(batch_inputs)
-        avg_out = tf.expand_dims(tf.math.reduce_mean(batch_inputs, axis=0), axis=-1)
+        avg_out = tf.math.reduce_mean(batch_inputs, axis=0)
         print(avg_out.shape, "avg")
         print(batch_labels.shape, "batch_labels")
 
