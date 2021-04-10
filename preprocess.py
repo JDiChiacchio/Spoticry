@@ -19,13 +19,14 @@ def preprocess(data):
     #loop through data vectorizing and padding
     for song in data:
         if song[1] != prev_user_id:
-            while len(song_list) >= 4:
+            length_dict[len(song_list)] += 1
+            while len(song_list) >= window_size:
                 inputs.append(song_list[:window_size-1])
                 labels.append(song_list[window_size-1])
                 song_list = song_list[window_size:]
-            length_dict[len(song_list)] += 1
             song_list = []
             prev_user_id = song[1]
+
         id = song[0]
         vec = list(array.array('f', song[2]))
         if not id_dict.get(id)!= None:
@@ -34,6 +35,9 @@ def preprocess(data):
             next_id += 1
         song_list.append(id_dict[id])
 
+
+    print(inputs[0], inputs[100], inputs[-1])
+    print(labels[0], labels[100], labels[-1])
     #train_test split
     inputs = tf.convert_to_tensor(inputs)
     labels = tf.convert_to_tensor(labels)
@@ -52,8 +56,8 @@ def preprocess(data):
     test_inputs = inputs[:split_point]
     test_labels = labels[:split_point]
 
-    print(train_inputs.shape, train_labels.shape)
-    print(test_inputs[0].numpy)
+    # print(train_inputs.shape, train_labels.shape)
+    # print(test_inputs[0].numpy)
 
     # return train_inputs, train_labels, test_inputs, test_labels, embedding_table, id_dict
     pass
