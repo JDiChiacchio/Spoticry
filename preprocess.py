@@ -21,9 +21,17 @@ def preprocess(data):
         if song[1] != prev_user_id:
             length_dict[len(song_list)] += 1
             while len(song_list) >= window_size:
-                inputs.append(song_list[:window_size-1])
+                for i in range(window_size-1):
+                    lab = song_list[i]
+                    inp = song_list[:i] + song_list[i+1:]
+                    inputs.append(inp)
+                    labels.append(lab)
                 labels.append(song_list[window_size-1])
+                inputs.append(song_list[:window_size-1])
                 song_list = song_list[window_size:]
+            print(labels)
+            print(inputs)
+            break
             song_list = []
             prev_user_id = song[1]
 
@@ -57,15 +65,15 @@ def preprocess(data):
     embedding_table = np.array(embedding_table)
 
     # saving data and embedding_table
-    save_str = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
+    # save_str = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
 
-    np.save(save_str + 'train_inputs', train_inputs)
-    np.save(save_str + 'train_labels', train_labels)
+    # np.save(save_str + 'train_inputs', train_inputs)
+    # np.save(save_str + 'train_labels', train_labels)
 
-    np.save(save_str + 'test_inputs', test_inputs)
-    np.save(save_str + 'test_labels', test_labels)
+    # np.save(save_str + 'test_inputs', test_inputs)
+    # np.save(save_str + 'test_labels', test_labels)
 
-    np.save(save_str + 'embedding_table', embedding_table)
+    # np.save(save_str + 'embedding_table', embedding_table)
     pass
 
 
