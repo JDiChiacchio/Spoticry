@@ -64,7 +64,7 @@ if __name__ == "__main__":
     c = conn.cursor()
 
 
-    c.execute(see_tables)
+    c.execute(see_fields)
     print(c.fetchall())
 
     conn.close()
