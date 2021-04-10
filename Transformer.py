@@ -6,7 +6,7 @@ from preprocess import *
 
 hyper_params = {
      "batch_size": 32,
-     "num_epochs": 30,
+     "num_epochs": 40,
      "learning_rate": .001,
      "window_size": 3, #lol :(
      "embedding_size": 51,
@@ -109,10 +109,10 @@ def test(model, inputs, labels, epoch=None):
         total_mean_avg_loss += tf.reduce_mean(avg_loss)
 
     if epoch:
-        experiment.log_metric("model test loss", total_model_loss, step=epoch)
-        experiment.log_metric("avg test loss", total_avg_loss, step=epoch)
-        # experiment.log_metric("mean model test loss", total_mean_model_loss, step=epoch)
-        # experiment.log_metric("mean avg test loss", total_mean_avg_loss, step=epoch)
+        # experiment.log_metric("model test loss", total_model_loss, step=epoch)
+        # experiment.log_metric("avg test loss", total_avg_loss, step=epoch)
+        experiment.log_metric("mean model test loss", total_mean_model_loss, step=epoch)
+        experiment.log_metric("mean avg test loss", total_mean_avg_loss, step=epoch)
     else:
         experiment.log_metric("model test loss", total_model_loss)
         experiment.log_metric("avg test loss", total_avg_loss)
