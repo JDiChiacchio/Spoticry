@@ -46,6 +46,8 @@ if __name__ == "__main__":
 
     locstr = '/mnt/datassd/csci1951a-spoticry-data/'
 
+    see_tables = "SELECT name FROM spoticry.sqlite_master WHERE type='table'"
+
     get_data = '''
     SELECT music_brainz_id, user_id, vec
     FROM transformer
@@ -61,7 +63,8 @@ if __name__ == "__main__":
     conn = sqlite3.connect(locstr + 'spoticry.db')
     c = conn.cursor()
 
-    c.execute(see_fields)
+
+    c.execute(see_tables)
     print(c.fetchall())
 
     conn.close()
