@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
+from comet_ml import Experiment
 import tensorflow as tf
 from preprocess import *
-from comet_ml import Experiment
 
 hyper_params = {
      "batch_size": 16,
