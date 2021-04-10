@@ -9,7 +9,7 @@ hyper_params = {
      "num_epochs": 1,
      "learning_rate": .001,
      "window_size": 5, #might have to be tiny
-     "embedding_size": 50,
+     "embedding_size": 51,
      "kqv_size": 64
  }
 

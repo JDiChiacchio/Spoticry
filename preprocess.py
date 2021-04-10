@@ -1,3 +1,5 @@
+import sqlite3
+import array
 
 def preprocess(data):
     next_id = 0
@@ -38,3 +40,29 @@ def preprocess(data):
     test_labels = labels[:split_point]
 
     return train_inputs, train_labels, test_inputs, test_labels, embedding_table, id_dict
+
+
+if __name__ == "__main__":
+
+    locstr = '/mnt/datassd/csci1951a-spoticry-data/'
+
+    get_data = '''
+    SELECT music_brainz_id, user_id, vec
+    FROM transformer
+    GROUP BY user_id
+    '''
+
+    see_fields = '''
+    SELECT *
+    FROM transformer
+    LIMIT 1
+    '''
+
+    conn = sqlite3.connect(locstr + 'spoticry.db')
+    c = conn.cursor()
+
+    c.execute(see_fields)
+    print(c.fetchall())
+
+    conn.close()
+
