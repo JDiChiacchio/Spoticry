@@ -49,21 +49,18 @@ if __name__ == "__main__":
     see_tables = "SELECT name FROM sqlite_master WHERE type='table'"
 
     get_data = '''
-    SELECT music_brainz_id, user_id, vec
+    SELECT song_id, user_id, vec
     FROM transformer
     GROUP BY user_id
-    '''
-
-    see_fields = '''
-    PRAGMA table_info(transformer)
+    LIMIT 10
     '''
 
     conn = sqlite3.connect(locstr + 'acoustic.db')
     c = conn.cursor()
 
 
-    c.execute(see_fields)
-    print(c.fetchall())
+    c.execute(get_data)
+    print(c.fetchmany(10))
 
     conn.close()
 
