@@ -6,11 +6,11 @@ from preprocess import *
 
 hyper_params = {
      "batch_size": 32,
-     "num_epochs": 40,
+     "num_epochs": 50,
      "learning_rate": .001,
      "window_size": 3, #lol :(
      "embedding_size": 51,
-     "kqv_size": 64
+     "kqv_size": 128
  }
 
 class Transformer(tf.Module):
@@ -143,4 +143,4 @@ if __name__ == "__main__":
     #save model
     # tf.saved_model.save(model, locstr + 'transformer_model')
 
-    # test(model, test_inputs, test_labels)
+    test(model, test_inputs, test_labels)
