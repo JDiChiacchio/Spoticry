@@ -10,7 +10,7 @@ hyper_params = {
      "learning_rate": .001,
      "window_size": 3, #lol :(
      "embedding_size": 51,
-     "kqv_size": 128
+     "kqv_size": 64
  }
 
 class Transformer(tf.Module):
@@ -107,7 +107,7 @@ def test(model, inputs, labels, epoch=None):
 
     if epoch:
         experiment.log_metric("mean model test loss", total_mean_model_loss, step=epoch)
-        experiment.log_metric("mean avg test loss", total_mean_avg_loss, step=epoch)
+        # experiment.log_metric("mean avg test loss", total_mean_avg_loss, step=epoch)
     else:
         experiment.log_metric("model test loss", total_mean_model_loss)
         experiment.log_metric("avg test loss", total_mean_avg_loss)
