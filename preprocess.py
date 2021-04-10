@@ -34,8 +34,8 @@ def preprocess(data):
         song_list.append(id_dict[id])
 
     #train_test split
-    inputs = tf.tensor(inputs)
-    labels = tf.tensor(labels)
+    inputs = tf.convert_to_tensor(inputs)
+    labels = tf.convert_to_tensor(labels)
 
     seed = np.random.randint(1,1000)
     inputs = tf.random.shuffle(data, seed)
@@ -54,7 +54,8 @@ def preprocess(data):
     print(train_inputs.shape, train_labels.shape)
     print(test_inputs[0].numpy)
 
-    return train_inputs, train_labels, test_inputs, test_labels, embedding_table, id_dict
+    # return train_inputs, train_labels, test_inputs, test_labels, embedding_table, id_dict
+    pass
 
 
 if __name__ == "__main__":
