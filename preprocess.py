@@ -62,7 +62,7 @@ def preprocess(data):
 
     embedding_table = np.array(embedding_table)
 
-    saving data and embedding_table
+    # saving data and embedding_table
     save_str = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
 
     np.save(save_str + 'train_inputs', train_inputs)
