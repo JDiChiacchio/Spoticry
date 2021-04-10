@@ -61,9 +61,10 @@ if __name__ == "__main__":
 
     c.execute(get_data)
     temp = c.fetchall()
-    temp[-1] = array.fromunicode(temp[-1])
-    print(temp)
-    print(len(temp[-1]))
+    print(temp[-1])
+    vec = array.array('f', temp[-1])
+    print(vec)
+    print(len(vec))
 
     conn.close()
 
