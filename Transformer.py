@@ -52,7 +52,7 @@ class Transformer(tf.Module):
         return tf.matmul(z, self.dense) + self.bias
 
 
-def train(model, inputs, labels):
+def train(model, inputs, labels, test_inputs=None, test_labels=None):
 
     optimizer = tf.keras.optimizers.Adam(model.lr)
 
@@ -63,6 +63,8 @@ def train(model, inputs, labels):
     num_batches = inputs.shape[0]//model.batch_size
 
     for epoch in range(model.num_epochs):
+        if epoch > 0 and test_inputs:
+            test(model, test_inputs, test_labels, epoch)
         for batch in range(num_batches):
             with tf.GradientTape() as tape:
 
@@ -80,7 +82,7 @@ def train(model, inputs, labels):
 
                 experiment.log_metric("loss",total_loss,step= epoch*num_batches + batch)
 
-def test(model, inputs, labels):
+def test(model, inputs, labels, epoch=None):
 
     total_model_loss = 0.0
     total_avg_loss = 0.0
@@ -96,9 +98,6 @@ def test(model, inputs, labels):
 
         model_out = model.forward(batch_inputs)
         avg_out = tf.expand_dims(tf.math.reduce_mean(model.get_embedding(batch_inputs), axis=1), axis=1)
-        print(avg_out.shape, "avg")
-        print(model_out.shape, "model")
-        print(batch_labels.shape, "batch_labels")
 
         model_loss = tf.keras.losses.MSE(batch_labels, model_out)
         avg_loss = tf.keras.losses.MSE(batch_labels, avg_out)
@@ -109,14 +108,16 @@ def test(model, inputs, labels):
         total_mean_model_loss += tf.reduce_mean(model_loss)
         total_mean_avg_loss += tf.reduce_mean(avg_loss)
 
-    print("model loss:", total_model_loss)
-    print("avg loss:", total_avg_loss)
-    print("model mean loss:", total_mean_model_loss)
-    print("avg mean loss:", total_mean_avg_loss)
-    experiment.log_metric("model test loss", total_model_loss)
-    experiment.log_metric("avg test loss", total_avg_loss)
-    experiment.log_metric("mean model test loss", total_mean_model_loss)
-    experiment.log_metric("mean avg test loss", total_mean_avg_loss)
+    if epoch:
+        experiment.log_metric("model test loss", total_model_loss, step=epoch)
+        experiment.log_metric("avg test loss", total_avg_loss, step=epoch)
+        # experiment.log_metric("mean model test loss", total_mean_model_loss, step=epoch)
+        # experiment.log_metric("mean avg test loss", total_mean_avg_loss, step=epoch)
+    else:
+        experiment.log_metric("model test loss", total_model_loss)
+        experiment.log_metric("avg test loss", total_avg_loss)
+        experiment.log_metric("mean model test loss", total_mean_model_loss)
+        experiment.log_metric("mean avg test loss", total_mean_avg_loss)
 
 if __name__ == "__main__":
 
