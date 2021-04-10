@@ -46,7 +46,10 @@ class Transformer(tf.Module):
         q = tf.linalg.matmul(embedded, self.W_q)
         v = tf.linalg.matmul(embedded, self.W_v)
 
-        z = tf.matmul(tf.nn.softmax(tf.matmul(q,tf.transpose(k, perm=[0,2,1]))/(self.kqv_size **(.5))), v)
+        z = tf.nn.softmax(tf.matmul(q,tf.transpose(k, perm=[0,2,1]))/(self.kqv_size **(.5)))
+        print(z.shape)
+        z = tf.matmul(z, v)
+
 
         return tf.matmul(z, self.dense) + self.bias
 
