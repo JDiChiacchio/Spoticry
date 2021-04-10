@@ -54,7 +54,6 @@ class Transformer(tf.Module):
 def train(model, inputs, labels):
 
     optimizer = tf.keras.optimizers.Adam(model.lr)
-    loss_fn = tf.keras.losses.MSE()
 
     #shuffling
     seed = np.random.randint(1,1000)
@@ -70,7 +69,7 @@ def train(model, inputs, labels):
                 batch_labels = labels[batch*model.batch_size:(batch+1)*model.batch_size]
 
                 out = model.forward(batch_inputs)
-                loss = loss_fn(model.get_embedding(batch_labels), out)
+                loss = tf.keras.losses.MSE(model.get_embedding(batch_labels), out)
 
                 grads = tape.gradient(loss, model.trainable_weights)
                 optimizer.apply_gradients(zip(grads, model.trainable_weights))
@@ -95,7 +94,7 @@ def test(model, inputs, labels):
         model_out = model.forward(batch_inputs)
         avg_out = tf.math.reduce_mean(batch_inputs, axis=1)
 
-        model_loss = loss_fn(batch_labels, model_out)
+        model_loss = tf.keras.losses.MSE(batch_labels, model_out)
         avg_loss = loss_fn(batch_labels, avg_out)
 
         total_model_loss += model_loss
