@@ -34,7 +34,7 @@ class Transformer(tf.Module):
 
         self.embeddings = tf.convert_to_tensor(embedding_table)
 
-    def get_embedding(indices):
+    def get_embedding(self, indices):
         return tf.gather(self.embeddings,indices)
 
     def forward(self, input):
