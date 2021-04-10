@@ -3,22 +3,24 @@ import array
 
 def preprocess(data):
     next_id = 0
-    id_dict = {} #music_brainz_id to num
+    prev_song_id = "noonehasthisid"
+    id_dict = {}
     embedding_table = []
     inputs = []
     labels = []
 
     #loop through data vectorizing and padding
-    for user in data:
-        song_list = []
-        for song in user:
-            id = song[0]
-            vec = song[2]
-            if not id_dict.get(id)!= None:
-                id_dict[id] = next_id
-                embedding_table.append(vec)
-                next_id += 1
-            song_list.append(id_dict[id])
+    for song in data:
+        if song[1] != prev_song_id:
+            print(len(song_list))
+            song_list = []
+        id = song[0]
+        vec = list(array.array('f', song[2]))
+        if not id_dict.get(id)!= None:
+            id_dict[id] = next_id
+            # embedding_table.append(vec)
+            next_id += 1
+        song_list.append(id_dict[id])
         
 
     #train_test split
@@ -59,8 +61,11 @@ if __name__ == "__main__":
 
 
     c.execute(get_data)
-    temp = c.fetchmany(10)
-    print(temp)
+    data = c.fetchall()
 
     conn.close()
+
+
+    preprocess(data)
+
 
