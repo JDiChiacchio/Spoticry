@@ -25,14 +25,14 @@ class Transformer(tf.Module):
         self.embedding_size = hyper_params["embedding_size"]
         self.kqv_size = hyper_params["kqv_size"]
 
-        self.W_k = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size)))
-        self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size)))
-        self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size)))
+        self.W_k = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=float32))
+        self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=float32))
+        self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=float32))
 
-        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size)))
-        self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size,)))
+        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size), dtype=float32))
+        self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size,), dtype=float32))
 
-        self.embeddings = tf.convert_to_tensor(embedding_table)
+        self.embeddings = tf.convert_to_tensor(embedding_table, dtype=float32)
 
     def get_embedding(self, indices):
         return tf.gather(self.embeddings,indices)
