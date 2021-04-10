@@ -44,7 +44,7 @@ def preprocess(data):
 
     # HYPER-PARAM TEST PERCENTAGE
     test_percentage = .2
-    split_point = test_percentage * labels.shape[0]
+    split_point = int(test_percentage * labels.shape[0])
 
     train_inputs = inputs[split_point:]
     train_labels = labels[split_point:]
