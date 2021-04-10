@@ -51,7 +51,7 @@ if __name__ == "__main__":
     get_data = '''
     SELECT song_id, user_id, vec
     FROM transformer
-    GROUP BY user_id
+    ORDER BY user_id
     '''
 
     conn = sqlite3.connect(locstr + 'acoustic.db')
@@ -59,9 +59,8 @@ if __name__ == "__main__":
 
 
     c.execute(get_data)
-    # temp = c.fetchall()
-    # print(temp)
-    vec = array.array('f', temp[-1][-1])
+    temp = c.fetchmany(10)
+    print(temp)
 
     conn.close()
 
