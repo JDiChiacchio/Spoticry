@@ -60,7 +60,7 @@ if __name__ == "__main__":
     LIMIT 1
     '''
 
-    conn = sqlite3.connect(locstr + 'spoticry.db')
+    conn = sqlite3.connect(locstr + 'acoustic.db')
     c = conn.cursor()
 
 
