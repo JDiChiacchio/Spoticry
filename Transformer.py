@@ -57,8 +57,8 @@ def train(model, inputs, labels):
 
     #shuffling
     seed = np.random.randint(1,1000)
-    inputs = tf.random.shuffle(data, seed)
-    labels = tf.random.shuffle(data, seed)
+    inputs = tf.random.shuffle(inputs, seed)
+    labels = tf.random.shuffle(labels, seed)
     num_batches = inputs.shape[0]//model.batch_size
 
     for epoch in self.num_epochs:
