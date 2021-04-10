@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     c.execute(get_data)
     temp = c.fetchall()
-    temp[-1] = array.array('f', temp[-1])
+    temp[-1] = array.fromunicode(temp[-1])
     print(temp)
     print(len(temp[-1]))
 
