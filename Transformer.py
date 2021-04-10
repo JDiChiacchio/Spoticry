@@ -93,7 +93,7 @@ def test(model, inputs, labels):
         batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=-1)
 
         model_out = model.forward(batch_inputs)
-        avg_out = tf.math.reduce_mean(batch_inputs, axis=1)
+        avg_out = tf.expand_dims(tf.math.reduce_mean(batch_inputs, axis=0), axis=-1)
         print(avg_out.shape, "avg")
         print(batch_labels.shape, "batch_labels")
 
