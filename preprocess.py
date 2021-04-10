@@ -57,7 +57,7 @@ def preprocess(data):
     embedding_table = np.array(embedding_table)
 
     # saving data and embedding_table
-    save_str = '/home/shared/Spoticry/Transformers_data/'
+    save_str = '/home/shared/Spoticry/Transformer_data/'
 
     np.save(save_str + 'train_inputs', train_inputs)
     np.save(save_str + 'train_labels', train_labels)
