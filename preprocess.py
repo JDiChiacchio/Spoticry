@@ -8,12 +8,14 @@ def preprocess(data):
     embedding_table = []
     inputs = []
     labels = []
+    song_list = []
 
     #loop through data vectorizing and padding
     for song in data:
         if song[1] != prev_song_id:
             print(len(song_list))
             song_list = []
+            prev_song_id = song[0]
         id = song[0]
         vec = list(array.array('f', song[2]))
         if not id_dict.get(id)!= None:
