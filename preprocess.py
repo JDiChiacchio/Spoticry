@@ -42,7 +42,7 @@ def preprocess(data):
     inputs = tf.convert_to_tensor(inputs)
     labels = tf.convert_to_tensor(labels)
 
-    print(train_inputs.shape, train_labels.shape)
+    print(inputs.shape, labels.shape)
     print(test_inputs[0].numpy)
 
     seed = np.random.randint(1,1000)
