@@ -70,8 +70,8 @@ def train(model, inputs, labels):
                 batch_labels = labels[batch*model.batch_size:(batch+1)*model.batch_size]
                 batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=-1)
 
-                out = model.forward(batch_labels, batch_inputs)
-                loss = tf.keras.losses.MSE(, out)
+                out = model.forward(batch_inputs)
+                loss = tf.keras.losses.MSE(batch_labels, out)
 
                 grads = tape.gradient(loss, model.trainable_weights)
                 optimizer.apply_gradients(zip(grads, model.trainable_weights))
