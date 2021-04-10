@@ -94,9 +94,12 @@ def test(model, inputs, labels):
 
         model_out = model.forward(batch_inputs)
         avg_out = tf.math.reduce_mean(batch_inputs, axis=1)
+        print(avg_out.shape, "avg")
+        print(batch_labels.shape, "batch_labels")
 
         model_loss = tf.keras.losses.MSE(batch_labels, model_out)
         avg_loss = tf.keras.losses.MSE(batch_labels, avg_out)
+        print(avg_loss, "avg_loss")
 
         total_model_loss += model_loss
         total_avg_loss += avg_loss
