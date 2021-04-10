@@ -26,7 +26,7 @@ def preprocess(data):
                 added = True
                 for i in range(window_size-1):
                     lab = song_list[i]
-                    inp = song_list[:i] + song_list[i+1:]
+                    inp = song_list[:i] + song_list[i+1:window_size]
                     inputs.append(inp)
                     labels.append(lab)
                 labels.append(song_list[window_size-1])
