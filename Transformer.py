@@ -63,7 +63,7 @@ def train(model, inputs, labels, test_inputs=None, test_labels=None):
     num_batches = inputs.shape[0]//model.batch_size
 
     for epoch in range(model.num_epochs):
-        if epoch > 0 and test_inputs!=None:
+        if not epoch%5 and epoch > 0 and test_inputs!=None:
             test(model, test_inputs, test_labels, epoch)
         for batch in range(num_batches):
             with tf.GradientTape() as tape:
@@ -102,22 +102,15 @@ def test(model, inputs, labels, epoch=None):
         model_loss = tf.keras.losses.MSE(batch_labels, model_out)
         avg_loss = tf.keras.losses.MSE(batch_labels, avg_out)
 
-        total_model_loss += tf.reduce_sum(model_loss)
-        total_avg_loss += tf.reduce_sum(avg_loss)
-
         total_mean_model_loss += tf.reduce_mean(model_loss)
         total_mean_avg_loss += tf.reduce_mean(avg_loss)
 
     if epoch:
-        # experiment.log_metric("model test loss", total_model_loss, step=epoch)
-        # experiment.log_metric("avg test loss", total_avg_loss, step=epoch)
         experiment.log_metric("mean model test loss", total_mean_model_loss, step=epoch)
         experiment.log_metric("mean avg test loss", total_mean_avg_loss, step=epoch)
     else:
-        experiment.log_metric("model test loss", total_model_loss)
-        experiment.log_metric("avg test loss", total_avg_loss)
-        experiment.log_metric("mean model test loss", total_mean_model_loss)
-        experiment.log_metric("mean avg test loss", total_mean_avg_loss)
+        experiment.log_metric("model test loss", total_mean_model_loss)
+        experiment.log_metric("avg test loss", total_mean_avg_loss)
 
 if __name__ == "__main__":
 
