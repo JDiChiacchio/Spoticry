@@ -139,7 +139,7 @@ if __name__ == "__main__":
     model = Transformer(embedding_table)
 
     #Make Global Average Vector
-    avg_vec = tf.reduce_mean(model.get_embeddings(test_inputs), axis=0, keepdims=True)
+    avg_vec = tf.reduce_mean(model.get_embedding(test_inputs), axis=0, keepdims=True)
     avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
 
     #Train, and Test
