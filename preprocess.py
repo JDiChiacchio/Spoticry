@@ -36,7 +36,7 @@ def preprocess(data):
         song_list.append(id_dict[id])
 
 
-    #train_test split
+    # train_test split
     inputs = tf.convert_to_tensor(inputs)
     labels = tf.convert_to_tensor(labels)
 
@@ -48,17 +48,24 @@ def preprocess(data):
     test_percentage = .2
     split_point = int(test_percentage * labels.shape[0])
 
-    train_inputs = inputs[split_point:]
-    train_labels = labels[split_point:]
+    train_inputs = inputs[split_point:].numpy()
+    train_labels = labels[split_point:].numpy()
 
-    test_inputs = inputs[:split_point]
-    test_labels = labels[:split_point]
+    test_inputs = inputs[:split_point].numpy()
+    test_labels = labels[:split_point].numpy()
 
+    embedding_table = np.array(embedding_table)
 
-    print(train_inputs.shape, train_labels.shape)
-    print(test_inputs[0].numpy)
-    print(test_labels[0].numpy)
-    # return train_inputs, train_labels, test_inputs, test_labels, embedding_table, id_dict
+    # saving data and embedding_table
+    save_str = '~/Transformers_data/'
+
+    np.save(save_str + 'train_inputs', train_inputs)
+    np.save(save_str + 'train_labels', train_labels)
+
+    np.save(save_str + 'test_inputs', test_inputs)
+    np.save(save_str + 'test_labels', test_labels)
+
+    np.save(save_str + 'embedding_table', embedding_table)
     pass
 
 
