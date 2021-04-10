@@ -78,7 +78,7 @@ def train(model, inputs, labels):
 
                 total_loss = tf.reduce_mean(loss)
 
-                # experiment.log_metric("loss",total_loss,step= epoch*num_batches + batch)
+                experiment.log_metric("loss",total_loss,step= epoch*num_batches + batch)
 
 def test(model, inputs, labels):
 
@@ -114,6 +114,7 @@ if __name__ == "__main__":
         api_key="2jaNx8WWN5smqSk7XGawlXOFF",
         project_name="spoticry",
         workspace="gvannewk",
+        log_code = False
     )
 
     experiment.log_parameters(hyper_params)
