@@ -16,8 +16,6 @@ def preprocess(data):
 
     length_dict = defaultdict(int)
 
-    added = False
-
     #loop through data vectorizing and padding
     for song in data:
         if song[1] != prev_user_id:
@@ -32,10 +30,6 @@ def preprocess(data):
                 labels.append(song_list[window_size-1])
                 inputs.append(song_list[:window_size-1])
                 song_list = song_list[window_size:]
-            if added:
-                print(labels)
-                print(inputs)
-                break
             song_list = []
             prev_user_id = song[1]
 
@@ -68,16 +62,16 @@ def preprocess(data):
 
     embedding_table = np.array(embedding_table)
 
-    # saving data and embedding_table
-    # save_str = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
+    saving data and embedding_table
+    save_str = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
 
-    # np.save(save_str + 'train_inputs', train_inputs)
-    # np.save(save_str + 'train_labels', train_labels)
+    np.save(save_str + 'train_inputs', train_inputs)
+    np.save(save_str + 'train_labels', train_labels)
 
-    # np.save(save_str + 'test_inputs', test_inputs)
-    # np.save(save_str + 'test_labels', test_labels)
+    np.save(save_str + 'test_inputs', test_inputs)
+    np.save(save_str + 'test_labels', test_labels)
 
-    # np.save(save_str + 'embedding_table', embedding_table)
+    np.save(save_str + 'embedding_table', embedding_table)
     pass
 
 
