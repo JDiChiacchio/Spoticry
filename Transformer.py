@@ -117,10 +117,10 @@ if __name__ == "__main__":
 
     locstr = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
 
-    train_inputs = tf.convert_to_tensor(np.load(locstr + 'train_inputs.npy'), dtype=tf.float32)
-    train_labels = tf.convert_to_tensor(np.load(locstr + 'train_labels.npy'), dtype=tf.float32)
-    test_inputs = tf.convert_to_tensor(np.load(locstr + 'test_inputs.npy'), dtype=tf.float32)
-    test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'), dtype=tf.float32)
+    train_inputs = tf.convert_to_tensor(np.load(locstr + 'train_inputs.npy'), dtype=tf.int32)
+    train_labels = tf.convert_to_tensor(np.load(locstr + 'train_labels.npy'), dtype=tf.int32)
+    test_inputs = tf.convert_to_tensor(np.load(locstr + 'test_inputs.npy'), dtype=tf.int32)
+    test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'), dtype=tf.int32)
     embedding_table = np.load(locstr + 'embedding_table.npy')
 
     model = Transformer(embedding_table)
