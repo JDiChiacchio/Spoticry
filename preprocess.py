@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     locstr = '/mnt/datassd/csci1951a-spoticry-data/'
 
-    see_tables = "SELECT name FROM spoticry.db.sqlite_master WHERE type='table'"
+    see_tables = "SELECT name FROM sqlite_master WHERE type='table'"
 
     get_data = '''
     SELECT music_brainz_id, user_id, vec
