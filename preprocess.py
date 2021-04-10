@@ -55,9 +55,7 @@ if __name__ == "__main__":
     '''
 
     see_fields = '''
-    SELECT *
-    FROM transformer
-    LIMIT 0
+    PRAGMA table_info(transformer)
     '''
 
     conn = sqlite3.connect(locstr + 'acoustic.db')
