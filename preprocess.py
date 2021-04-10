@@ -59,8 +59,8 @@ if __name__ == "__main__":
 
 
     c.execute(get_data)
-    temp = c.fetchall()
-    print(temp)
+    # temp = c.fetchall()
+    # print(temp)
     vec = array.array('f', temp[-1][-1])
 
     conn.close()
