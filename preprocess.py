@@ -43,7 +43,8 @@ def preprocess(data):
     labels = tf.convert_to_tensor(labels)
 
     print(inputs.shape, labels.shape)
-    print(test_inputs[0].numpy)
+    print(inputs[0].numpy)
+    print(labels[0].numpy)
 
     seed = np.random.randint(1,1000)
     inputs = tf.random.shuffle(data, seed)
