@@ -95,7 +95,7 @@ def test(model, inputs, labels):
         batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=1)
 
         model_out = model.forward(batch_inputs)
-        avg_out = tf.math.reduce_mean(model.get_embedding(batch_inputs), axis=1)
+        avg_out = tf.expand_dims(tf.math.reduce_mean(model.get_embedding(batch_inputs), axis=1), axis=1)
         print(avg_out.shape, "avg")
         print(model_out.shape, "model")
         print(batch_labels.shape, "batch_labels")
@@ -115,6 +115,8 @@ def test(model, inputs, labels):
     print("avg mean loss:", total_mean_avg_loss)
     experiment.log_metric("model test loss", total_model_loss)
     experiment.log_metric("avg test loss", total_avg_loss)
+    experiment.log_metric("mean model test loss", total_mean_model_loss)
+    experiment.log_metric("mean avg test loss", total_mean_avg_loss)
 
 if __name__ == "__main__":
 
