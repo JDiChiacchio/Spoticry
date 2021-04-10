@@ -100,8 +100,8 @@ def test(model, inputs, labels):
         model_loss = tf.keras.losses.MSE(batch_labels, model_out)
         avg_loss = tf.keras.losses.MSE(batch_labels, avg_out)
 
-        total_model_loss += tf.reduce_mean(model_loss)
-        total_avg_loss += tf.reduce_mean(avg_loss)
+        total_model_loss += tf.reduce_sum(model_loss)
+        total_avg_loss += tf.reduce_sum(avg_loss)
 
     print("model loss:", total_model_loss)
     print("avg loss:", total_avg_loss)
