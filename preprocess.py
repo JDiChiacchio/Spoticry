@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
 
     c.execute(get_data)
-    temp = c.fetchmany(5)
+    temp = c.fetchall()
     print(temp)
     vec = array.array('f', temp[-1][-1])
 
