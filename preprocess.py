@@ -1,9 +1,10 @@
 import sqlite3
 import array
+import tensorflow as tf
 
 def preprocess(data):
     next_id = 0
-    prev_song_id = "noonehasthisid"
+    prev_user_id = "noonehasthisid"
     id_dict = {}
     embedding_table = []
     inputs = []
@@ -12,10 +13,10 @@ def preprocess(data):
 
     #loop through data vectorizing and padding
     for song in data:
-        if song[1] != prev_song_id:
+        if song[1] != prev_user_id:
             print(len(song_list))
             song_list = []
-            prev_song_id = song[0]
+            prev_user_id = song[1]
         id = song[0]
         vec = list(array.array('f', song[2]))
         if not id_dict.get(id)!= None:
