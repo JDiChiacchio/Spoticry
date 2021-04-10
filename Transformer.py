@@ -47,11 +47,9 @@ class Transformer(tf.Module):
         v = tf.linalg.matmul(embedded, self.W_v)
 
         z = tf.nn.softmax(tf.matmul(q,tf.transpose(k, perm=[0,2,1]))/(self.kqv_size **(.5)))
-        print(z.shape, "z_before")
         z = tf.matmul(z, v)
-        print(z.shape, "z_after")
 
-        return tf.matmul(z, self.dense) + self.bias
+        return tf.reshape(tf.matmul(z, self.dense) + self.bias, (self.batch_size, self.embedding_size, self.window_size))
 
 
 def train(model, inputs, labels):
