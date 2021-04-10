@@ -73,8 +73,8 @@ def train(model, inputs, labels):
                 out = model.forward(batch_inputs)
                 loss = tf.keras.losses.MSE(batch_labels, out)
 
-                grads = tape.gradient(loss, model.trainable_weights)
-                optimizer.apply_gradients(zip(grads, model.trainable_weights))
+                grads = tape.gradient(loss, model.trainable_variables)
+                optimizer.apply_gradients(zip(grads, model.trainable_variables))
 
                 experiment.log_metric("loss",loss,step= epoch*num_batches + batch)
 
