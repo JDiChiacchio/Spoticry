@@ -52,7 +52,7 @@ if __name__ == "__main__":
     SELECT song_id, user_id, vec
     FROM transformer
     GROUP BY user_id
-    LIMIT 10
+    LIMIT 1
     '''
 
     conn = sqlite3.connect(locstr + 'acoustic.db')
@@ -60,7 +60,10 @@ if __name__ == "__main__":
 
 
     c.execute(get_data)
-    print(c.fetchmany(10))
+    temp = c.fetchall()
+    temp[-1] = array.array('f', temp[-1])
+    print(temp)
+    print(len(temp[-1]))
 
     conn.close()
 
