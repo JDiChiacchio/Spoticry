@@ -1,6 +1,7 @@
 import sqlite3
 import array
 import tensorflow as tf
+from collections import defaultdict
 
 def preprocess(data):
     next_id = 0
