@@ -52,7 +52,7 @@ class Transformer(tf.Module):
         return tf.matmul(z, self.dense) + self.bias
 
 
-def train(model, inputs, labels, test_inputs=None, test_labels=None):
+def train(model, inputs, labels, test_inputs=None, test_labels=None, avg_vec=None):
 
     optimizer = tf.keras.optimizers.Adam(model.lr)
 
@@ -64,7 +64,7 @@ def train(model, inputs, labels, test_inputs=None, test_labels=None):
 
     for epoch in range(model.num_epochs):
         if not epoch%5 and epoch > 0 and test_inputs!=None:
-            test(model, test_inputs, test_labels, epoch)
+            test(model, test_inputs, test_labels, epoch, avg_vec)
         for batch in range(num_batches):
             with tf.GradientTape() as tape:
 
@@ -82,12 +82,13 @@ def train(model, inputs, labels, test_inputs=None, test_labels=None):
 
                 experiment.log_metric("loss",total_loss,step= epoch*num_batches + batch)
 
-def test(model, inputs, labels, epoch=None):
+def test(model, inputs, labels, epoch=None, avg_vec=None):
 
     total_model_loss = 0.0
     total_avg_loss = 0.0
     total_mean_avg_loss = 0.0
     total_mean_model_loss = 0.0
+    total_global_avg_vec_loss = 0.0
 
     num_batches = inputs.shape[0]//model.batch_size
     for batch in range(num_batches):
@@ -101,16 +102,18 @@ def test(model, inputs, labels, epoch=None):
 
         model_loss = tf.keras.losses.MSE(batch_labels, model_out)
         avg_loss = tf.keras.losses.MSE(batch_labels, avg_out)
+        global_avg_vec_loss = tf.keras.losses.MSE(batch_labels, avg_vec)
 
         total_mean_model_loss += tf.reduce_mean(model_loss)
         total_mean_avg_loss += tf.reduce_mean(avg_loss)
+        total_global_avg_vec_loss += tf.reduce_mean(global_avg_vec_loss)
 
     if epoch:
         experiment.log_metric("mean model test loss", total_mean_model_loss, step=epoch)
-        # experiment.log_metric("mean avg test loss", total_mean_avg_loss, step=epoch)
     else:
         experiment.log_metric("model test loss", total_mean_model_loss)
         experiment.log_metric("avg test loss", total_mean_avg_loss)
+        experiment.log_metric("global avg vector test loss", total_global_avg_vec_loss)
 
 if __name__ == "__main__":
 
@@ -131,9 +134,11 @@ if __name__ == "__main__":
     test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'), dtype=tf.int32)
     embedding_table = np.load(locstr + 'embedding_table.npy')
 
-    model = Transformer(embedding_table)
-    train(model, train_inputs, train_labels, test_inputs, test_labels)
-    #save model
-    # tf.saved_model.save(model, locstr + 'transformer_model')
+    #Make Global Average Vector
+    avg_vec = tf.reduce_mean(model.get_embeddings(test_inputs), axis=0, keepdims=True)
+    avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
 
-    test(model, test_inputs, test_labels)
+    #Initialize Model, Train, and Test
+    model = Transformer(embedding_table)
+    train(model, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
+    test(model, test_inputs, test_labels, avg_vec=avg_vec)
