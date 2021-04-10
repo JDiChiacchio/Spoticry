@@ -82,8 +82,6 @@ def train(model, inputs, labels):
 
 def test(model, inputs, labels):
 
-    model = model.evaluate()
-
     total_model_loss = 0.0
     total_avg_loss = 0.0
 
