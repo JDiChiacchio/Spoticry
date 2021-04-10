@@ -32,7 +32,7 @@ class Transformer(tf.Module):
         self.dense = tf.Variable(tf.random.normal(shape = (kqv_size, embedding_size)))
         self.bias = tf.Variable(tf.random.normal(shape = (embedding_size)))
 
-        self.embeddings = tf.tensor(embedding_table)
+        self.embeddings = tf.convert_to_tensor(embedding_table)
 
     def get_embedding(indices):
         return tf.gather(self.embeddings,indices)
@@ -116,11 +116,20 @@ if __name__ == "__main__":
 
     experiment.log_parameters(hyper_params)
 
-    train_inputs, train_labels, test_inputs, test_labels, embedding_table, id_dict = preprocess()
+    locstr = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
+
+    train_inputs = tf.convert_to_tensor(np.load(locstr + 'train_inputs.npy'))
+    train_labels = tf.convert_to_tensor(np.load(locstr + 'train_labels.npy'))
+    test_inputs = tf.convert_to_tensor(np.load(locstr + 'test_inputs.npy'))
+    test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'))
+    embedding_table = np.load(locstr + 'embedding_table.npy')
+
+    print(embedding_table[:5], "embedding_table")
+    print(train_inputs[0].numpy())
 
     model = Transformer(embedding_table)
     train(model, train_inputs, train_labels)
     #save model
-    tf.saved_model.save(model, '/transformer_model')
+    tf.saved_model.save(model, locstr + 'transformer_model')
 
     test(model, test_inputs, test_labels)
