@@ -25,12 +25,12 @@ class Transformer(tf.Module):
         self.embedding_size = hyper_params["embedding_size"]
         self.kqv_size = hyper_params["kqv_size"]
 
-        self.W_k = tf.Variable(tf.random.normal(shape = (embedding_size, kqv_size)))
-        self.W_q = tf.Variable(tf.random.normal(shape = (embedding_size, kqv_size)))
-        self.W_v = tf.Variable(tf.random.normal(shape = (embedding_size, kqv_size)))
+        self.W_k = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size)))
+        self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size)))
+        self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size)))
 
-        self.dense = tf.Variable(tf.random.normal(shape = (kqv_size, embedding_size)))
-        self.bias = tf.Variable(tf.random.normal(shape = (embedding_size)))
+        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size)))
+        self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size)))
 
         self.embeddings = tf.convert_to_tensor(embedding_table)
 
@@ -123,9 +123,6 @@ if __name__ == "__main__":
     test_inputs = tf.convert_to_tensor(np.load(locstr + 'test_inputs.npy'))
     test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'))
     embedding_table = np.load(locstr + 'embedding_table.npy')
-
-    print(embedding_table[:5], "embedding_table")
-    print(train_inputs[0].numpy())
 
     model = Transformer(embedding_table)
     train(model, train_inputs, train_labels)
