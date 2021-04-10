@@ -61,7 +61,7 @@ def train(model, inputs, labels):
     labels = tf.random.shuffle(labels, seed)
     num_batches = inputs.shape[0]//model.batch_size
 
-    for epoch in model.num_epochs:
+    for epoch in range(model.num_epochs):
         for batch in range(num_batches):
             with tf.GradientTape() as tape:
 
