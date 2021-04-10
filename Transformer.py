@@ -76,7 +76,9 @@ def train(model, inputs, labels):
                 grads = tape.gradient(loss, model.trainable_variables)
                 optimizer.apply_gradients(zip(grads, model.trainable_variables))
 
-                experiment.log_metric("loss",loss,step= epoch*num_batches + batch)
+                total_loss = tf.reduce_mean(loss)
+
+                # experiment.log_metric("loss",total_loss,step= epoch*num_batches + batch)
 
 def test(model, inputs, labels):
 
