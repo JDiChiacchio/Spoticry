@@ -139,8 +139,8 @@ if __name__ == "__main__":
     embedding_table = np.load(locstr + 'embedding_table.npy')
 
     model = Transformer(embedding_table)
-    train(model, train_inputs, train_labels)
+    train(model, train_inputs, train_labels, test_inputs, test_labels)
     #save model
-    tf.saved_model.save(model, locstr + 'transformer_model')
+    # tf.saved_model.save(model, locstr + 'transformer_model')
 
-    test(model, test_inputs, test_labels)
+    # test(model, test_inputs, test_labels)
