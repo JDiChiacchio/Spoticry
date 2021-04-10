@@ -16,11 +16,14 @@ def preprocess(data):
 
     length_dict = defaultdict(int)
 
+    added = False
+
     #loop through data vectorizing and padding
     for song in data:
         if song[1] != prev_user_id:
             length_dict[len(song_list)] += 1
             while len(song_list) >= window_size:
+                added = True
                 for i in range(window_size-1):
                     lab = song_list[i]
                     inp = song_list[:i] + song_list[i+1:]
@@ -29,9 +32,10 @@ def preprocess(data):
                 labels.append(song_list[window_size-1])
                 inputs.append(song_list[:window_size-1])
                 song_list = song_list[window_size:]
-            print(labels)
-            print(inputs)
-            break
+            if added:
+                print(labels)
+                print(inputs)
+                break
             song_list = []
             prev_user_id = song[1]
 
