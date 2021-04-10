@@ -8,7 +8,7 @@ hyper_params = {
      "batch_size": 16,
      "num_epochs": 1,
      "learning_rate": .001,
-     "window_size": 5, #might have to be tiny
+     "window_size": 3, #lol :(
      "embedding_size": 51,
      "kqv_size": 64
  }

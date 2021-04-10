@@ -11,6 +11,7 @@ def preprocess(data):
     inputs = []
     labels = []
     song_list = []
+    window_size = 4
 
     length_dict = defaultdict(int)
 
@@ -22,6 +23,7 @@ def preprocess(data):
             prev_user_id = song[1]
         id = song[0]
         vec = list(array.array('f', song[2]))
+        print(vec)
         if not id_dict.get(id)!= None:
             id_dict[id] = next_id
             # embedding_table.append(vec)
