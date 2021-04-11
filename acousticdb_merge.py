@@ -5,7 +5,7 @@ import sqlite3
 import array
 import glob
 
-locstr = '/mnt/datassd2/csci1951a-spoticry-data/'
+locstr = '/mnt/datassd2/spoticry-data/'
 
 
 def add_sentiment(blob, sentiment_score):

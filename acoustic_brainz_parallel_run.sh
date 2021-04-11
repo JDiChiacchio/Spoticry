@@ -13,7 +13,7 @@ wait
 # Accumulate result stats in a summary file
 echo > ../acousticbrnz_out/summary
 for val in $nums; do
-    cat "$val" |  tail -1 >> ../acousticbrnz_out/summary
+    cat ../acousticbrnz_out/"$val" |  tail -1 >> ../acousticbrnz_out/summary
 done
 # Combine database components
 python acousticdb_merge.py &
