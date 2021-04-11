@@ -77,7 +77,7 @@ def preprocess(data):
 
 if __name__ == "__main__":
 
-    locstr = '/mnt/datassd2/csci1951a-spoticry-data/'
+    locstr = '/mnt/datassd2/spoticry-data/'
 
     see_tables = "SELECT name FROM sqlite_master WHERE type='table'"
 
