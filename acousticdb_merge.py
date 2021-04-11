@@ -20,16 +20,16 @@ with sqlite3.connect(locstr + 'spoticry.db') as conn:
 
     # Compile a tempory full acoustic database table from components
     make_main_acoustic = '''
-  CREATE TABLE full_acoustic_brainz (
-    music_brainz_recording_id VARCHAR NOT NULL,
-    artist VARCHAR NOT NULL,
-    title VARCHAR NOT NULL,
-    cleaned_artist VARCHAR NOT NULL,
-    cleaned_title VARCHAR NOT NULL,
-    vec BLOB NOT NULL,
-    PRIMARY KEY (music_brainz_recording_id)
-  );
-  '''
+      CREATE TABLE full_acoustic_brainz (
+        music_brainz_recording_id VARCHAR NOT NULL,
+        artist VARCHAR NOT NULL,
+        title VARCHAR NOT NULL,
+        cleaned_artist VARCHAR NOT NULL,
+        cleaned_title VARCHAR NOT NULL,
+        vec BLOB NOT NULL,
+        PRIMARY KEY (music_brainz_recording_id)
+    );
+    '''
     c.execute(make_main_acoustic)
 
     for file in glob.iglob(locstr + "acousticdb_components/*_acoustic.db"):
@@ -41,7 +41,7 @@ with sqlite3.connect(locstr + 'spoticry.db') as conn:
         conn.commit()
         c.execute('DETACH DATABASE \'component\'')
 
-# Remove duplicate songs from full table
+  # Remove duplicate songs from full table
     remove_dup = '''
       DELETE FROM full_acoustic_brainz
       WHERE rowid NOT IN
@@ -63,7 +63,7 @@ with sqlite3.connect(locstr + 'spoticry.db') as conn:
 
     merge = '''
       INSERT INTO transformer
-      SELECT listening_songs.song_id, user_id, add_sentiment(vec, sentiment)
+      SELECT b.song_id, b.user_id, add_sentiment(vec, sentiment)
       FROM full_acoustic_brainz a
       JOIN listening_songs b
       ON b.cleaned_title = a.cleaned_title AND b.cleaned_artist = a.cleaned_artist
@@ -71,7 +71,6 @@ with sqlite3.connect(locstr + 'spoticry.db') as conn:
       ON b.song_id = c.song_id;
     '''
     c.execute(merge)
-
     # Delete tempory table and close connection
     c.execute('DROP TABLE full_acoustic_brainz')
     conn.close()
