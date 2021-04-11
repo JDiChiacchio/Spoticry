@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
     experiment.log_parameters(hyper_params)
 
-    locstr = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
+    locstr = '/mnt/datassd2/spoticry-data/transformer_data/'
 
     train_inputs = tf.convert_to_tensor(np.load(locstr + 'train_inputs.npy'), dtype=tf.int32)
     train_labels = tf.convert_to_tensor(np.load(locstr + 'train_labels.npy'), dtype=tf.int32)

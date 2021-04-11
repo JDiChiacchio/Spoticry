@@ -63,7 +63,7 @@ def preprocess(data):
     embedding_table = np.array(embedding_table)
 
     # saving data and embedding_table
-    save_str = '/mnt/datassd/csci1951a-spoticry-data/transformer_data/'
+    save_str = '/mnt/datassd2/spoticry-data/transformer_data/'
 
     np.save(save_str + 'train_inputs', train_inputs)
     np.save(save_str + 'train_labels', train_labels)
@@ -90,13 +90,13 @@ if __name__ == "__main__":
     conn = sqlite3.connect(locstr + 'spoticry.db')
     c = conn.cursor()
 
-    c.execute(see_tables)
-    print(c.fetchall())
-    # c.execute(get_data)
-    # data = c.fetchall()
+    # c.execute(see_tables)
+    # print(c.fetchall())
+    c.execute(get_data)
+    data = c.fetchall()
 
     conn.close()
 
-    # preprocess(data)
+    preprocess(data)
 
 
