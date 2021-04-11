@@ -87,7 +87,7 @@ if __name__ == "__main__":
     ORDER BY user_id
     '''
 
-    conn = sqlite3.connect(locstr + 'acoustic.db')
+    conn = sqlite3.connect(locstr + 'spoticry.db')
     c = conn.cursor()
 
 
