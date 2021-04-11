@@ -12,7 +12,8 @@ from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import layers, models
 
 
-locstr = '/mnt/datassd/csci1951a-spoticry-data/'
+locstr = '/mnt/datassd2/spoticry-data/'
+data_dir = 'acousticbrainz-lowlevel/lowlevel/'
 RETRAIN = False
 
 # Acousticbrainz feature extraction and database creating code
@@ -128,7 +129,7 @@ def get_vectors(num_vectors):
     vecs = []
     songs_info = []
     num_times = 0
-    for path in glob.glob(locstr + "./acoustic_brainz_dataset/" + match + "*/*.json"):
+    for path in glob.glob(locstr + data_dir + match + "/*/*.json"):
         if len(vecs) > num_vectors:
             break
         num_times += 1
@@ -201,7 +202,7 @@ of_dif_length = 0
 no_title_or_artist = 0
 added = 0
 seen = set()
-for path in glob.iglob(locstr + "acoustic_brainz_dataset/" + match + "*/*.json"):
+for path in glob.iglob(locstr + data_dir + match + "/*/*.json"):
     # print(path)
     num_times += 1
 

@@ -9,7 +9,7 @@ from humanfriendly import format_timespan
 
 
 # Database path
-dbpath = '/mnt/datassd/csci1951a-spoticry-data/spoticry.db'
+dbpath = '/mnt/datassd2/spoticry-data/'
 # True to delete lyric table and start from scratch. False to continue on unscraped song_ids
 rebuild = False
 # Execute this many requests per database update/progress report
@@ -19,9 +19,18 @@ block_size = 5000
 def format_request(song_tuple):
     artist, title = song_tuple[1:]
     Source_URL = "https://genius.com/"
+    # Drop secondary artists
+    artist = re.sub(r'(\/[\s\S]*)', '', artist.strip())
+    title = title.strip()
     query = artist + '-' + title + '-lyrics'
+    query = query.lower()
+    # Drop anything in parentheses or brackets
+    query = re.sub(r'\([^)]*\)', '', query)
+    query = re.sub(r'\[[^\]]*\]', '', query)
+    # Expand & to and
+    query = re.sub(r'&', 'and', query)
     # Convert spaces to hyphens
-    query = re.sub(r'\s+', '-', query.lower())
+    query = re.sub(r'[\-\s/]+', '-', query)
     # Restrict query chars to alphanumeric and hyphens
     query = re.sub(r'[^a-z0-9\-]', '', query)
     return (song_tuple[0], Source_URL + query)
@@ -49,7 +58,7 @@ def request_worker(request):
     return (request[0], response)
 
 
-conn = sqlite3.connect('../spoticry.db')
+conn = sqlite3.connect(dbpath + 'spoticry.db')
 c = conn.cursor()
 if rebuild:
     c.execute('DROP TABLE IF EXISTS lyrics;')
@@ -82,7 +91,7 @@ for i in range(round(num_titles / block_size)):
     with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
         html_out = list(executor.map(
             request_worker, song_urls[block_size * i: upper_bound]))
-        conn = sqlite3.connect(dbpath)
+        conn = sqlite3.connect(dbpath + 'spoticry.db')
         c = conn.cursor()
         suc = [save_and_format(item, c) for item in html_out]
         conn.commit()
