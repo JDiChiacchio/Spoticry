@@ -90,12 +90,13 @@ if __name__ == "__main__":
     conn = sqlite3.connect(locstr + 'spoticry.db')
     c = conn.cursor()
 
-
-    c.execute(get_data)
-    data = c.fetchall()
+    c.execute(see_tables)
+    print(c.fetchall())
+    # c.execute(get_data)
+    # data = c.fetchall()
 
     conn.close()
 
-    preprocess(data)
+    # preprocess(data)
 
 
