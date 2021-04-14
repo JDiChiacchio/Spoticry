@@ -73,7 +73,7 @@ def train(model, inputs, labels, test_inputs=None, test_labels=None, avg_vec=Non
                 batch_labels = tf.expand_dims(model.get_embedding(batch_labels), axis=1)
 
                 out = model.forward(batch_inputs)
-                loss = tf.keras.losses.cosine_similarity(batch_labels, out)
+                loss = tf.keras.losses.MSE(batch_labels, out)
 
                 grads = tape.gradient(loss, model.trainable_variables)
                 optimizer.apply_gradients(zip(grads, model.trainable_variables))
@@ -100,9 +100,9 @@ def test(model, inputs, labels, epoch=None, avg_vec=None):
         model_out = model.forward(batch_inputs)
         avg_out = tf.expand_dims(tf.math.reduce_mean(model.get_embedding(batch_inputs), axis=1), axis=1)
 
-        model_loss = tf.keras.losses.cosine_similarity(batch_labels, model_out)
-        avg_loss = tf.keras.losses.cosine_similarity(batch_labels, avg_out)
-        global_avg_vec_loss = tf.keras.losses.cosine_similarity(batch_labels, avg_vec)
+        model_loss = tf.keras.losses.MSE(batch_labels, model_out)
+        avg_loss = tf.keras.losses.MSE(batch_labels, avg_out)
+        global_avg_vec_loss = tf.keras.losses.MSE(batch_labels, avg_vec)
 
         total_mean_model_loss += tf.reduce_mean(model_loss)
         total_mean_avg_loss += tf.reduce_mean(avg_loss)
