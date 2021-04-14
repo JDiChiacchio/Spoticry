@@ -16,7 +16,7 @@ def preprocess(data):
 
     length_dict = defaultdict(int)
 
-    #loop through data vectorizing and padding
+    #loop through data vectorizing and trimming
     for song in data:
         if song[1] != prev_user_id:
             length_dict[len(song_list)] += 1
@@ -40,6 +40,8 @@ def preprocess(data):
             embedding_table.append(vec)
             next_id += 1
         song_list.append(id_dict[id])
+
+    print(length_dict)
 
 
     # train_test split
