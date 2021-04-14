@@ -12,7 +12,7 @@ def preprocess(data):
     inputs = []
     labels = []
     song_list = []
-    window_size = 4
+    window_size = 7
 
     length_dict = defaultdict(int)
 
