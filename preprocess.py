@@ -87,6 +87,7 @@ if __name__ == "__main__":
     SELECT song_id, user_id, vec
     FROM transformer
     ORDER BY user_id
+    LIMIT 10
     '''
 
     conn = sqlite3.connect(locstr + 'spoticry.db')
@@ -96,9 +97,10 @@ if __name__ == "__main__":
     # print(c.fetchall())
     c.execute(get_data)
     data = c.fetchall()
+    print(data)
 
     conn.close()
 
-    preprocess(data)
+    # preprocess(data)
 
 
