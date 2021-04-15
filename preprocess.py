@@ -35,13 +35,15 @@ def preprocess(data):
 
         id = song[0]
         vec = list(array.array('f', song[2]))
+        print(vec)
+        break
         if not id_dict.get(id)!= None:
             id_dict[id] = next_id
             embedding_table.append(vec)
             next_id += 1
         song_list.append(id_dict[id])
 
-    print(length_dict)
+    # print(length_dict)
 
 
     # train_test split
@@ -67,13 +69,13 @@ def preprocess(data):
     # saving data and embedding_table
     save_str = '/mnt/datassd2/spoticry-data/transformer_data/'
 
-    np.save(save_str + 'train_inputs', train_inputs)
-    np.save(save_str + 'train_labels', train_labels)
+    # np.save(save_str + 'train_inputs', train_inputs)
+    # np.save(save_str + 'train_labels', train_labels)
 
-    np.save(save_str + 'test_inputs', test_inputs)
-    np.save(save_str + 'test_labels', test_labels)
+    # np.save(save_str + 'test_inputs', test_inputs)
+    # np.save(save_str + 'test_labels', test_labels)
 
-    np.save(save_str + 'embedding_table', embedding_table)
+    # np.save(save_str + 'embedding_table', embedding_table)
     pass
 
 
@@ -87,7 +89,6 @@ if __name__ == "__main__":
     SELECT song_id, user_id, vec
     FROM transformer
     ORDER BY user_id
-    LIMIT 10
     '''
 
     conn = sqlite3.connect(locstr + 'spoticry.db')
@@ -97,10 +98,9 @@ if __name__ == "__main__":
     # print(c.fetchall())
     c.execute(get_data)
     data = c.fetchall()
-    print(data)
 
     conn.close()
 
-    # preprocess(data)
+    preprocess(data)
 
 
