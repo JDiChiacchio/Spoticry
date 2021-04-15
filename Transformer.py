@@ -134,18 +134,15 @@ if __name__ == "__main__":
     test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'), dtype=tf.int32)
     embedding_table = np.load(locstr + 'embedding_table.npy')
 
-    print(train_inputs.shape, "train_shape")
-    print(train_inputs[0], "train_slice")
+    print(embedding_table[:5], "table")
 
-    print(embedding_table[0], "table")
+    #Initialize Model
+    model = Transformer(embedding_table)
 
-    # #Initialize Model
-    # model = Transformer(embedding_table)
+    #Make Global Average Vector
+    avg_vec = tf.reduce_mean(model.get_embedding(test_inputs), axis=0, keepdims=True)
+    avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
 
-    # #Make Global Average Vector
-    # avg_vec = tf.reduce_mean(model.get_embedding(test_inputs), axis=0, keepdims=True)
-    # avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
-
-    # #Train, and Test
-    # train(model, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
-    # test(model, test_inputs, test_labels, avg_vec=avg_vec)
+    #Train, and Test
+    train(model, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
+    test(model, test_inputs, test_labels, avg_vec=avg_vec)
