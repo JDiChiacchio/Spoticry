@@ -49,7 +49,7 @@ class Transformer(tf.Module):
         z = tf.nn.softmax(tf.matmul(q,tf.transpose(k, perm=[0,2,1]))/(self.kqv_size **(.5)))
         z = tf.matmul(z, v)
 
-        z = tf.reshape(self.batch_size, -1)
+        z = tf.reshape(z (self.batch_size, -1))
 
         return tf.matmul(z, self.dense) + self.bias
 
