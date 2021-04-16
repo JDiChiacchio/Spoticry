@@ -6,7 +6,7 @@ from preprocess import *
 
 hyper_params = {
      "batch_size": 32,
-     "num_epochs": 5,
+     "num_epochs": 1,
      "learning_rate": .001,
      "window_size": 3, #lol :(
      "embedding_size": 51,
@@ -123,12 +123,12 @@ def test(transformer, perceptron, inputs, labels, epoch=None, avg_vec=None):
 
         t_loss = tf.keras.losses.MSE(batch_labels, t_out)
         p_loss = tf.keras.losses.MSE(batch_labels, p_out)
-        baseline_loss = tf.keras.losses.MSE(batch_labels, avg_out)
+        baseline_loss = tf.keras.losses.MSE(batch_labels, baseline_out)
         global_avg_loss = tf.keras.losses.MSE(batch_labels, avg_vec)
 
         total_transformer_loss += tf.reduce_mean(t_loss)
         total_perceptron_loss += tf.reduce_mean(p_loss)
-        total_baseline_loss += tf.reduce_mean(avg_loss)
+        total_baseline_loss += tf.reduce_mean(baseline_loss)
         total_global_avg_loss += tf.reduce_mean(global_avg_loss)
 
     if epoch:
