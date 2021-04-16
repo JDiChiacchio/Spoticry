@@ -101,6 +101,4 @@ for i in range(round(num_titles / block_size)):
     projected = (time_spent / upper_bound) * (num_titles - upper_bound)
     suc_sum += sum(suc)
     suc_rate = round(100 * suc_sum/upper_bound)
-    if i % 10 == 0:
-        os.system("clear")
     print(f'Progress: {progress}%  ({upper_bound}/{num_titles} songs checked) | Success rate: {suc_rate}% \nTime elapsed: {format_timespan(time_spent)}. | Projected time remaining: {format_timespan(projected)}.')
