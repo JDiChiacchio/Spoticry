@@ -6,7 +6,7 @@ from preprocess import *
 
 hyper_params = {
      "batch_size": 32,
-     "num_epochs": 1,
+     "num_epochs": 3,
      "learning_rate": .001,
      "window_size": 3, #lol :(
      "embedding_size": 51,
@@ -137,8 +137,8 @@ def test(transformer, perceptron, inputs, labels, epoch=None, avg_vec=None):
     else:
         experiment.log_metric("transformer test loss", total_transformer_loss)
         experiment.log_metric("perceptron test loss", total_perceptron_loss)
-        experiment.log_metric("avg test loss", total_mean_avg_loss)
-        experiment.log_metric("global avg vector test loss", total_global_avg_vec_loss)
+        experiment.log_metric("avg test loss", total_baseline_loss)
+        experiment.log_metric("global avg vector test loss", total_global_avg_loss)
 
 if __name__ == "__main__":
 
