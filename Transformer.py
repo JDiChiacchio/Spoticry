@@ -6,7 +6,7 @@ from preprocess import *
 
 hyper_params = {
      "batch_size": 32,
-     "num_epochs": 3,
+     "num_epochs": 60,
      "learning_rate": .001,
      "window_size": 3, #lol :(
      "embedding_size": 51,
