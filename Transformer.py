@@ -84,8 +84,8 @@ def train(model, inputs, labels, model_name, test_inputs=None, test_labels=None,
     num_batches = inputs.shape[0]//model.batch_size
 
     for epoch in range(model.num_epochs):
-        if not epoch%5 and epoch > 0 and test_inputs!=None:
-            test(model, test_inputs, test_labels, epoch, avg_vec)
+        # if not epoch%5 and epoch > 0 and test_inputs!=None:
+        #     test(model, test_inputs, test_labels, epoch, avg_vec)
         for batch in range(num_batches):
             with tf.GradientTape() as tape:
 
