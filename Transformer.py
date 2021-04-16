@@ -110,7 +110,7 @@ def test(transformer, perceptron, inputs, labels, epoch=None, avg_vec=None):
     total_baseline_loss = 0.0
     total_global_avg_loss = 0.0
 
-    num_batches = inputs.shape[0]//model.batch_size
+    num_batches = inputs.shape[0]//transformer.batch_size
     for batch in range(num_batches):
 
         batch_inputs = inputs[batch*transformer.batch_size:(batch+1)*transformer.batch_size]
@@ -119,7 +119,7 @@ def test(transformer, perceptron, inputs, labels, epoch=None, avg_vec=None):
 
         t_out = transformer.forward(batch_inputs)
         p_out = perceptron.forward(batch_inputs)
-        baseline_out = tf.expand_dims(tf.math.reduce_mean(model.get_embedding(batch_inputs), axis=1), axis=1)
+        baseline_out = tf.expand_dims(tf.math.reduce_mean(transformer.get_embedding(batch_inputs), axis=1), axis=1)
 
         t_loss = tf.keras.losses.MSE(batch_labels, t_out)
         p_loss = tf.keras.losses.MSE(batch_labels, p_out)
