@@ -61,7 +61,7 @@ class Perceptron(tf.Module):
         self.lr = hyper_params["learning_rate"]
         self.window_size = hyper_params["window_size"]
         
-        self.perceptron = tf.keras.layers.Dense(hyper_params["window_size"])
+        self.perceptron = tf.keras.layers.Dense(hyper_params["embedding_size"])
         self.embeddings = tf.convert_to_tensor(embedding_table, dtype=tf.float32)
 
     def get_embedding(self, indices):
