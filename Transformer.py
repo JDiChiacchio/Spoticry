@@ -29,7 +29,7 @@ class Transformer(tf.Module):
         self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
         self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
 
-        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size), dtype=tf.float32))
+        self.dense = tf.Variable(tf.random.normal(shape = (192, self.embedding_size), dtype=tf.float32))
         self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size,), dtype=tf.float32))
 
         self.embeddings = tf.convert_to_tensor(embedding_table, dtype=tf.float32)
