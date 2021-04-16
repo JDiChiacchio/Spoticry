@@ -73,7 +73,7 @@ class Perceptron(tf.Module):
         return self.perceptron(inputs)
 
 
-def train(model, inputs, labels, test_inputs=None, test_labels=None, avg_vec=None):
+def train(model, inputs, labels, model_name, test_inputs=None, test_labels=None, avg_vec=None):
 
     optimizer = tf.keras.optimizers.Adam(model.lr)
 
@@ -101,7 +101,7 @@ def train(model, inputs, labels, test_inputs=None, test_labels=None, avg_vec=Non
 
                 total_loss = tf.reduce_mean(loss)
 
-                experiment.log_metric("loss",total_loss,step= epoch*num_batches + batch)
+                experiment.log_metric(model_name + "loss",total_loss,step= epoch*num_batches + batch)
 
 def test(transformer, perceptron, inputs, labels, epoch=None, avg_vec=None):
 
@@ -159,6 +159,8 @@ if __name__ == "__main__":
     test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'), dtype=tf.int32)
     embedding_table = np.load(locstr + 'embedding_table.npy')
 
+    print(test_labels)
+
     #Initialize Model
     transformer = Transformer(embedding_table)
     perceptron = Perceptron(embedding_table)
@@ -168,8 +170,8 @@ if __name__ == "__main__":
     avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
 
     #Train both models seperately
-    train(perceptron, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
-    train(transformer, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
+    train(perceptron, train_inputs, train_labels, "Perceptron", test_inputs, test_labels, avg_vec)
+    train(transformer, train_inputs, train_labels, "Transformer", test_inputs, test_labels, avg_vec)
 
     #Testing models together
     test(transformer, pereptron, test_inputs, test_labels, avg_vec=avg_vec)
