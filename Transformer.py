@@ -174,4 +174,4 @@ if __name__ == "__main__":
     train(transformer, train_inputs, train_labels, "Transformer", test_inputs, test_labels, avg_vec)
 
     #Testing models together
-    test(transformer, pereptron, test_inputs, test_labels, avg_vec=avg_vec)
+    test(transformer, perceptron, test_inputs, test_labels, avg_vec=avg_vec)
