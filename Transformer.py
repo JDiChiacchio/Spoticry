@@ -120,6 +120,9 @@ def test(transformer, perceptron, inputs, labels, epoch=None, avg_vec=None):
         t_out = transformer.forward(batch_inputs)
         p_out = perceptron.forward(batch_inputs)
         baseline_out = tf.expand_dims(tf.math.reduce_mean(transformer.get_embedding(batch_inputs), axis=1), axis=1)
+        print(t_out.shape, "t_out")
+        print(p_out.shape, "p_out")
+        print(baseline_out.shape, "baseline_out")
 
         t_loss = tf.keras.losses.MSE(batch_labels, t_out)
         p_loss = tf.keras.losses.MSE(batch_labels, p_out)
