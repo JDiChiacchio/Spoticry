@@ -67,7 +67,7 @@ class Perceptron(tf.Module):
     def get_embedding(self, indices):
         return tf.gather(self.embeddings,indices)
 
-    def forward(inputs):
+    def forward(self, inputs):
         inputs = self.get_embedding(inputs)
         inputs = tf.reshape(inputs, (self.batch_size, -1))
         return self.perceptron(inputs)
