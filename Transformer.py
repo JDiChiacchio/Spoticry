@@ -25,8 +25,6 @@ class Transformer(tf.Module):
         self.embedding_size = hyper_params["embedding_size"]
         self.kqv_size = hyper_params["kqv_size"]
 
-        self.name = "Transformer"
-
         self.W_k = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
         self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
         self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
@@ -65,8 +63,6 @@ class Perceptron(tf.Module):
         
         self.perceptron = tf.keras.layers.Dense(hyper_params["window_size"])
         self.embeddings = tf.convert_to_tensor(embedding_table, dtype=tf.float32)
-
-        self.name = Transformer
 
     def get_embedding(self, indices):
         return tf.gather(self.embeddings,indices)
