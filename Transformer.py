@@ -29,8 +29,8 @@ class Transformer(tf.Module):
         self.W_q = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
         self.W_v = tf.Variable(tf.random.normal(shape = (self.embedding_size, self.kqv_size), dtype=tf.float32))
 
-        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size), dtype=tf.float32))
-        self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size,), dtype=tf.float32))
+        self.dense = tf.Variable(tf.random.normal(shape = (self.kqv_size, self.embedding_size* self.window_size), dtype=tf.float32))
+        self.bias = tf.Variable(tf.random.normal(shape = (self.embedding_size * self.window_size,), dtype=tf.float32))
 
         self.embeddings = tf.convert_to_tensor(embedding_table, dtype=tf.float32)
 
@@ -48,6 +48,8 @@ class Transformer(tf.Module):
 
         z = tf.nn.softmax(tf.matmul(q,tf.transpose(k, perm=[0,2,1]))/(self.kqv_size **(.5)))
         z = tf.matmul(z, v)
+
+        z = tf.reshape(self.batch_size, -1)
 
         return tf.matmul(z, self.dense) + self.bias
 
@@ -119,7 +121,7 @@ def test(transformer, perceptron, inputs, labels, epoch=None, avg_vec=None):
 
         t_out = transformer.forward(batch_inputs)
         p_out = perceptron.forward(batch_inputs)
-        baseline_out = tf.expand_dims(tf.math.reduce_mean(transformer.get_embedding(batch_inputs), axis=1), axis=1)
+        baseline_out = tf.math.reduce_mean(transformer.get_embedding(batch_inputs), axis=1)
         print(t_out.shape, "t_out")
         print(p_out.shape, "p_out")
         print(baseline_out.shape, "baseline_out")
@@ -173,8 +175,8 @@ if __name__ == "__main__":
     avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
 
     #Train both models seperately
-    train(perceptron, train_inputs, train_labels, "Perceptron", test_inputs, test_labels, avg_vec)
-    train(transformer, train_inputs, train_labels, "Transformer", test_inputs, test_labels, avg_vec)
+    train(perceptron, train_inputs, train_labels, "Perceptron ", test_inputs, test_labels, avg_vec)
+    train(transformer, train_inputs, train_labels, "Transformer ", test_inputs, test_labels, avg_vec)
 
     #Testing models together
     test(transformer, perceptron, test_inputs, test_labels, avg_vec=avg_vec)
