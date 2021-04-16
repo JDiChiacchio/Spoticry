@@ -53,8 +53,8 @@ class Transformer(tf.Module):
 
 class Perceptron(tf.Module):
 
-    def __init__(self):
-        super().__init__(embedding_table)
+    def __init__(self, embedding_table):
+        super().__init__()
 
         self.batch_size = hyper_params["batch_size"]
         self.num_epochs = hyper_params["num_epochs"]
