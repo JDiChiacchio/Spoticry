@@ -168,8 +168,8 @@ if __name__ == "__main__":
     avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
 
     #Train both models seperately
-    train(transformer, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
     train(perceptron, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
+    train(transformer, train_inputs, train_labels, test_inputs, test_labels, avg_vec)
 
     #Testing models together
     test(transformer, pereptron, test_inputs, test_labels, avg_vec=avg_vec)
