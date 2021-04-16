@@ -59,6 +59,7 @@ with sqlite3.connect(locstr + 'spoticry.db') as conn:
       vec BLOB NOT NULL
     );
   '''
+    c.execute('DROP TABLE IF EXISTS transformer')
     c.execute(make_transformer_table)
 
     merge = '''

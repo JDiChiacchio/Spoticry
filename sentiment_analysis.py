@@ -5,16 +5,16 @@ import sqlite3
 import re
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from PyDictionary import PyDictionary
+#from PyDictionary import PyDictionary
 nltk.download('vader_lexicon')
 nltk.download('words')
 nltk.download('stopwords')
 
 
-locstr = '/mnt/datassd/csci1951a-spoticry-data/'
+locstr = '/mnt/datassd2/spoticry-data/'
 
 
-dictionary = PyDictionary()
+#dictionary = PyDictionary()
 sid = SentimentIntensityAnalyzer()
 
 
