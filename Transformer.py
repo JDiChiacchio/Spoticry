@@ -49,7 +49,7 @@ class Transformer(tf.Module):
         z = tf.nn.softmax(tf.matmul(q,tf.transpose(k, perm=[0,2,1]))/(self.kqv_size **(.5)))
         z = tf.matmul(z, v)
 
-        z = tf.reshape(z (self.batch_size, -1))
+        z = tf.reshape(z, (self.batch_size, -1))
 
         return tf.matmul(z, self.dense) + self.bias
 
@@ -175,8 +175,8 @@ if __name__ == "__main__":
     avg_vec = tf.reduce_mean(avg_vec, axis=1, keepdims=True)
 
     #Train both models seperately
-    train(perceptron, train_inputs, train_labels, "Perceptron ", test_inputs, test_labels, avg_vec)
     train(transformer, train_inputs, train_labels, "Transformer ", test_inputs, test_labels, avg_vec)
+    train(perceptron, train_inputs, train_labels, "Perceptron ", test_inputs, test_labels, avg_vec)
 
     #Testing models together
     test(transformer, perceptron, test_inputs, test_labels, avg_vec=avg_vec)
