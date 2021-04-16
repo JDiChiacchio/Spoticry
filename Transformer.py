@@ -6,7 +6,7 @@ from preprocess import *
 
 hyper_params = {
      "batch_size": 32,
-     "num_epochs": 65,
+     "num_epochs": 5,
      "learning_rate": .001,
      "window_size": 3, #lol :(
      "embedding_size": 51,
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     test_labels = tf.convert_to_tensor(np.load(locstr + 'test_labels.npy'), dtype=tf.int32)
     embedding_table = np.load(locstr + 'embedding_table.npy')
 
-    print(test_labels)
+    # print(test_labels)
 
     #Initialize Model
     transformer = Transformer(embedding_table)
